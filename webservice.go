@@ -20,7 +20,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 func generateUUID(w http.ResponseWriter, r *http.Request) {
 	u, err := uuid.NewV4()
 	if err != nil {
-		fmt.Printf("Something went wrong: %s", err)
+		fmt.Printf("Unable to generate UUID: %s", err)
 		return
 	}
     ut := time.Now().Format(time.RFC822)
