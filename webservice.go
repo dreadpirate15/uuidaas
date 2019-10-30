@@ -18,11 +18,15 @@ func index(w http.ResponseWriter, r *http.Request) {
 }
 
 func generateUUID(w http.ResponseWriter, r *http.Request) {
-	var u UUIDResponse
-	u.UUID = uuid.NewV4().String()
-	u.Timestamp = time.Now().Format(time.RFC822)
+	u, err := uuid.NewV4()
+	if err != nil {
+		fmt.Printf("Something went wrong: %s", err)
+		return
+	}
+    ut := time.Now().Format(time.RFC822)
+    uuid := UUIDResponse{u.String(), ut}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(u)
+	json.NewEncoder(w).Encode(uuid)
 }
 
 func SetHandlers() {
